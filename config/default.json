@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://admin123:E3WQgaUiXmMSGySD@cluster0.xn55s.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzOTQ0NDg3OSwiaWF0IjoxNjM5NDQ0ODc5fQ"
+  "jwtSecret": "eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzOTQ0NDg3OSwiaWF0IjoxNjM5NDQ0ODc5fQ",
+  "githubClientId": "63082ec15248a3883d3e",
+  "githubSecret": "efec70283c775b11d8b4b74d040324b948dbf7e0"
 }
