@@ -82,7 +82,12 @@ router.post(
       profileFields.githubusername = githubusername;
     }
     if (skills) {
-      profileFields.skills = skills.split(",").map((skill) => skill.trim());
+      console.log(skills);
+      if (Array.isArray(skills)) {
+        profileFields.skills = skills;
+      } else {
+        profileFields.skills = skills.split(",").map((skill) => skill.trim());
+      }
     }
 
     //Social Object
