@@ -26,7 +26,7 @@ const ProfileTop = ({
         ) : null}
         {social
           ? Object.entries(social)
-              .filter(([_, value]) => value)
+              .filter(([_, value]) => value) //_ is a wildcard, to take which social name entries provides
               .map(([key, value]) => (
                 <a
                   key={key}

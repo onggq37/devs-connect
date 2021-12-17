@@ -4,48 +4,50 @@ import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 import { createProfile, getCurrentProfile } from "../../actions/profile";
 
+const initialState = {
+  company: "",
+  website: "",
+  location: "",
+  status: "",
+  skills: "",
+  githubusername: "",
+  bio: "",
+  twitter: "",
+  facebook: "",
+  linkedin: "",
+  youtube: "",
+  instagram: "",
+};
+
 const EditProfile = ({
   profile: { profile, loading },
   createProfile,
   getCurrentProfile,
   history,
 }) => {
-  const [formData, setFormData] = useState({
-    company: "",
-    website: "",
-    location: "",
-    bio: "",
-    status: "",
-    githubusername: "",
-    skills: "",
-    youtube: "",
-    facebook: "",
-    twitter: "",
-    instagram: "",
-    linkedin: "",
-  });
+  const [formData, setFormData] = useState(initialState);
 
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
   useEffect(() => {
-    getCurrentProfile();
+    if (!profile) getCurrentProfile();
 
-    setFormData({
-      company: loading || !profile.company ? "" : profile.company,
-      website: loading || !profile.website ? "" : profile.website,
-      location: loading || !profile.location ? "" : profile.location,
-      bio: loading || !profile.bio ? "" : profile.bio,
-      status: loading || !profile.status ? "" : profile.status,
-      githubusername:
-        loading || !profile.githubusername ? "" : profile.githubusername,
-      skills: loading || !profile.skills ? "" : profile.skills,
-      youtube: loading || !profile.social ? "" : profile.social.youtube,
-      facebook: loading || !profile.social ? "" : profile.social.facebook,
-      twitter: loading || !profile.social ? "" : profile.social.twitter,
-      instagram: loading || !profile.social ? "" : profile.social.instagram,
-      linkedin: loading || !profile.social ? "" : profile.social.linkedin,
-    });
-  }, [loading, getCurrentProfile]);
+    if (!loading && profile) {
+      const profileData = { ...initialState };
+      for (const key in profile) {
+        if (key in profileData) profileData[key] = profile[key];
+      }
+      for (const key in profile.social) {
+        if (key in profileData) profileData[key] = profile.social[key];
+      }
+      // the skills is an array from API response
+      if (Array.isArray(profileData.skills))
+        profileData.skills = profileData.skills.join(", ");
+
+      // set local state with the profileData
+      setFormData(profileData);
+    }
+  }, [loading, getCurrentProfile, profile]);
 
   const {
     company,
