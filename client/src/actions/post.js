@@ -7,8 +7,8 @@ import {
   DELETE_POST,
   ADD_POST,
   GET_POST,
-  //   ADD_COMMENT,
-  //   REMOVE_COMMENT,
+  ADD_COMMENT,
+  REMOVE_COMMENT,
 } from "./types";
 
 // Get posts
@@ -123,40 +123,50 @@ export const getPost = (id) => async (dispatch) => {
   }
 };
 
-//   // Add comment
-//   export const addComment = (postId, formData) => async (dispatch) => {
-//     try {
-//       const res = await api.post(`/posts/comment/${postId}`, formData);
+// Add comment
+export const addComment = (postId, formData) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-//       dispatch({
-//         type: ADD_COMMENT,
-//         payload: res.data
-//       });
+  try {
+    const res = await axios.post(
+      `/api/posts/comment/${postId}`,
+      formData,
+      config
+    );
 
-//       dispatch(setAlert('Comment Added', 'success'));
-//     } catch (err) {
-//       dispatch({
-//         type: POST_ERROR,
-//         payload: { msg: err.response.statusText, status: err.response.status }
-//       });
-//     }
-//   };
+    dispatch({
+      type: ADD_COMMENT,
+      payload: res.data,
+    });
 
-//   // Delete comment
-//   export const deleteComment = (postId, commentId) => async (dispatch) => {
-//     try {
-//       await api.delete(`/posts/comment/${postId}/${commentId}`);
+    dispatch(setAlert("Comment Added", "success"));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
 
-//       dispatch({
-//         type: REMOVE_COMMENT,
-//         payload: commentId
-//       });
+// Delete comment
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
 
-//       dispatch(setAlert('Comment Removed', 'success'));
-//     } catch (err) {
-//       dispatch({
-//         type: POST_ERROR,
-//         payload: { msg: err.response.statusText, status: err.response.status }
-//       });
-//     }
-//   };
+    dispatch({
+      type: REMOVE_COMMENT,
+      payload: commentId,
+    });
+
+    dispatch(setAlert("Comment Removed", "success"));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
