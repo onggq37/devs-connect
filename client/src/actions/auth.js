@@ -41,12 +41,10 @@ export const register =
         "Content-Type": "application/json",
       },
     };
-    console.log("here");
     const body = JSON.stringify({ name, email, password });
 
     try {
       const res = await axios.post("/api/users", body, config);
-      console.log(res);
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -75,12 +73,10 @@ export const login =
         "Content-Type": "application/json",
       },
     };
-    console.log("here");
     const body = JSON.stringify({ email, password });
 
     try {
       const res = await axios.post("/api/auth", body, config);
-      console.log(res);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: res.data,
