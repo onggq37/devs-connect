@@ -83,7 +83,6 @@ router.post(
       profileFields.githubusername = githubusername;
     }
     if (skills) {
-      console.log(skills);
       if (Array.isArray(skills)) {
         profileFields.skills = skills;
       } else {
